@@ -1,0 +1,37 @@
+<html>
+<head>
+    <title>API</title>
+</head>
+<body>
+    <div id="massage"></div>
+    <button id="submit">Submit</button>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready (function (){
+            $("#submit").click(function (){
+                var url = "https://private-anon-0fa8ca9288-goquotes.apiary-mock.com/api/v1/all/quotes";
+
+                $.ajax({
+                    url: url,
+                    dataType: 'json',
+                    type: 'get',
+                    success: function (result) {
+                        var table = $("<table>").append("<tr><td>Product Id</td><td>Product Name</td><td>Unit Price</td></tr>");
+                            
+                            for (i = 0; i < result.length; i++) {
+                                table.append("<tr><td>" + result[i]["ProductID"] + "</td><td>" + result[i]["ProductName"] + "</td><td>"+result[i]["ProductPrice"] + "</td></tr>");
+                            }
+
+                            $("#massage").html(table);
+                    },
+                    error: function (error) {
+                        alert(error);
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
